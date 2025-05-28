@@ -3,6 +3,9 @@ const Book = require("../models/Book");
 
 const resolvers = {
   Query: {
+    author: (parent, args) => {
+      return Author.findById(args.id);
+    },
     books: () => Book.find(),
     authors: () => Author.find(),
   },
@@ -17,14 +20,14 @@ const resolvers = {
       return book.save();
     },
   },
+
   Book: {
-    author: (parent) => Author.findById(parent.authorId),
+    author: async (parent) => await Author.findById(parent.authorId),
   },
-  author: {
-    books: (parent) =>
-      Book.find({
-        authorId: parent.id,
-      }),
+
+  Author: {  // <-- Change from "author" to "Author"
+    books: (parent) => Book.find({ authorId: parent.id }),
   },
 };
+
 module.exports = resolvers;
