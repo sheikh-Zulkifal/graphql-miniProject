@@ -16,7 +16,7 @@ const typeDefs = gql`
   }
 
   type Query {
-  author(id:ID!): Author
+    author(id: ID!): Author
     books: [Book]
     authors: [Author]
   }
